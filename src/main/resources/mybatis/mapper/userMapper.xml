@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hss.mapper.UserMapper">
+
+    <resultMap id="userResult" type="com.hss.bean.User">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="name" property="name" />
+        <result column="passWord" property="passWord" />
+        <result column="mobileNumber" property="mobileNumber" />
+        <result column="brithday" property="brithday" />
+        <result column="sex" property="sex" />
+        <result column="headImgUrl" property="headImgUrl" />
+        <result column="tfAdmin" property="tfAdmin" />
+        <result column="createUser" property="createUser" />
+        <result column="createDate" property="createDate" />
+        <result column="updateUser" property="updateUser" />
+        <result column="updateDate" property="updateDate" />
+    </resultMap>
+
+    <sql id="columns">
+        ID,USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+    </sql>
+
+    <select id="findUserList" resultMap="userResult">
+        select <include refid="columns"/> from users
+    </select>
+
+    <insert id="registeredUser" parameterType="com.hss.bean.User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into users(USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,UPDATEUSER)
+        values(#{userName},#{name},#{passWord},#{mobileNumber},#{brithday},#{sex},#{headImgUrl},#{tfAdmin},#{createUser},#{updateUser})
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.hss.bean.User">
+        update users set
+        <if test="sex!=null and sex!=''">
+            SEX=#{sex},
+        </if>
+        id=#{id}
+        where id=#{id}
+    </update>
+
+    <select id="findUserByUserName" resultMap="userResult">
+        select <include refid="columns"/> from users where userName=#{userName}
+    </select>
+</mapper>
