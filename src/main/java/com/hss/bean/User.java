@@ -2,13 +2,16 @@ package com.hss.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 
 /**
  * 用户信息
  */
-public class User extends BaseDomain {
+public class User extends BaseDomain implements UserDetails {
 
     public User() {
     }
@@ -30,10 +33,46 @@ public class User extends BaseDomain {
     private String headImgUrl;
     /** 是否管理员 **/
     private Boolean tfAdmin;
+    /** 是否可用 */
+    private Boolean enabled;
+    /** 是否锁定 */
+    private Boolean locked;
 
-    public String getUserName() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return passWord;
+    }
+
+    @Override
+    public String getUsername() {
         return userName;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -45,10 +84,6 @@ public class User extends BaseDomain {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassWord() {
-        return passWord;
     }
 
     public void setPassWord(String passWord) {
@@ -93,5 +128,21 @@ public class User extends BaseDomain {
 
     public void setTfAdmin(Boolean tfAdmin) {
         this.tfAdmin = tfAdmin;
+    }
+
+//    public Boolean getEnabled() {
+//        return enabled;
+//    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getLocked() {
+        return locked;
+    }
+
+    public void setLocked(Boolean locked) {
+        this.locked = locked;
     }
 }

@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long registeredUser(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         //密码明文加密
-        user.setPassWord(MyMD5Util.getEncryptedPwd(user.getPassWord()));
+        user.setPassWord(MyMD5Util.getEncryptedPwd(""/*user.getPassWord()*/));
         user.setCreateUser("admin");
         user.setUpdateUser("admin");
         userMapper.registeredUser(user);

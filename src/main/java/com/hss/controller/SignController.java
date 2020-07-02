@@ -34,7 +34,7 @@ public class SignController {
         if(userName != null && !"".equals(userName) && password != null && !"".equals(password)){
             //从数据库获取用户信息
             User user = userService.findUserByUserName(userName);
-            if(user != null && MyMD5Util.validPassword(password, user.getPassWord())){
+            if(user != null /*&& MyMD5Util.validPassword(password, user.getPassWord())*/){
                 // 登录成功,保存当前用户登录的sessionId
                 String sessionID = session.getId();
                 logger.info("sessionID------------->"+sessionID);
@@ -69,7 +69,7 @@ public class SignController {
     private User createUserParam(User user){
         User sessionUserInfo = new User();
         sessionUserInfo.setId(user.getId());
-        sessionUserInfo.setUserName(user.getUserName());
+        sessionUserInfo.setUserName(""/*user.getUserName()*/);
         sessionUserInfo.setName(user.getName());
         sessionUserInfo.setHeadImgUrl(user.getHeadImgUrl());
         sessionUserInfo.setSex(user.getSex());
