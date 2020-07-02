@@ -3,23 +3,23 @@ package com.hss.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
+//import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+//import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.session.events.SessionCreatedEvent;
 import org.springframework.session.events.SessionDeletedEvent;
 import org.springframework.session.events.SessionExpiredEvent;
 
-@Configuration
+//@Configuration
 public class SpringSessionConfig {
 
     /**
      * 更换序列化器
      * @return
      */
-    @Bean("springSessionDefaultRedisSerializer")
+    /*@Bean("springSessionDefaultRedisSerializer")
     public RedisSerializer setSerializer(){
         return new GenericJackson2JsonRedisSerializer();
-    }
+    }*/
 
     /**
     * Redis内session过期事件监听

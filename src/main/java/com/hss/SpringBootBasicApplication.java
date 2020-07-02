@@ -3,7 +3,7 @@ package com.hss;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+//import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 /**
  * @EnableRedisHttpSession开启redis对SpringSession的支持
@@ -13,7 +13,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * cleanupCron	过期会话清理作业的 cron 表达式。默认值(“0 *****”)每分钟运行一次。
  */
 @SpringBootApplication
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 3600)
+//@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 3600)
 public class SpringBootBasicApplication {
 
     public static void main(String[] args) {
