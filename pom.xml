@@ -43,6 +43,12 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <!--<version>3.0.2.RELEASE</version>-->
+        </dependency>
+
         <!--jquery-->
         <dependency>
             <groupId>org.webjars</groupId>

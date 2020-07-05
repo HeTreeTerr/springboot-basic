@@ -17,10 +17,13 @@
         <result column="createDate" property="createDate" />
         <result column="updateUser" property="updateUser" />
         <result column="updateDate" property="updateDate" />
+        <result column="enabled" property="enabled" />
+        <result column="locked" property="locked" />
     </resultMap>
 
     <sql id="columns">
         ID,USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+        ,ENABLED,LOCKED
     </sql>
 
     <select id="findUserList" resultMap="userResult">
@@ -28,8 +31,8 @@
     </select>
 
     <insert id="registeredUser" parameterType="com.hss.bean.User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into users(USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,UPDATEUSER)
-        values(#{userName},#{name},#{passWord},#{mobileNumber},#{brithday},#{sex},#{headImgUrl},#{tfAdmin},#{createUser},#{updateUser})
+        insert into users(USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,UPDATEUSER,ENABLED,LOCKED)
+        values(#{userName},#{name},#{passWord},#{mobileNumber},#{brithday},#{sex},#{headImgUrl},#{tfAdmin},#{createUser},#{updateUser},#{enabled},#{locked})
     </insert>
 
     <update id="updateUserInfo" parameterType="com.hss.bean.User">

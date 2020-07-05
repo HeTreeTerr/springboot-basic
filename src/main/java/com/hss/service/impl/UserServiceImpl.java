@@ -9,6 +9,7 @@ import com.hss.util.MyMD5Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,8 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long registeredUser(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        //密码明文加密
-        user.setPassWord(MyMD5Util.getEncryptedPwd(""/*user.getPassWord()*/));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassWord(encoder.encode(user.getPassword()));
         user.setCreateUser("admin");
         user.setUpdateUser("admin");
         userMapper.registeredUser(user);

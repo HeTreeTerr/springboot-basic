@@ -22,7 +22,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/finUserListPage",method = {RequestMethod.GET,RequestMethod.POST})
-    public Msg finUserListPage(@RequestParam(value = "pageNo") Integer pageNo,@RequestParam(value = "pageSize") Integer pageSize){
+    public Msg finUserListPage(@RequestParam(value = "pageNo",defaultValue = "0") Integer pageNo
+            ,@RequestParam(value = "pageSize",defaultValue = "10") Integer pageSize){
         PageInfo<User> pageInfo = userService.findUserListPage(pageNo,pageSize);
         return Msg.success().add("pageInfo",pageInfo);
     }

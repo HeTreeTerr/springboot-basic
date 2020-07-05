@@ -51,13 +51,23 @@
                 async: false,
                 type: "POST",
                 success: function (result) {
-                    if (result.code == 100) {
+                    if (result.code == 100 && result.extend.flag) {
                         //跳转到系统主页
                         layer.msg("登录成功");
                         window.location.href = "/indexPage";
-                    }else{
+                    }else if (result.code == 100 && !result.extend.flag) {
                         console.log(result.extend.errorMsg);
-                        layer.msg(result.extend.errorMsg);
+                        layer.msg(result.extend.errorMsg,{time: 1000, icon:5});
+                    }else{
+                        loginException();
+                    }
+                },
+                error:function (result) {
+                    if (result.code == 100 && !result.extend.flag) {
+                        console.log(result.extend.errorMsg);
+                        layer.msg(result.extend.errorMsg,{time: 1000, icon:5});
+                    }else{
+                        loginException();
                     }
                 }
             });
@@ -65,5 +75,10 @@
         })
 
     });
+
+    function loginException() {
+        console.log("登录出错");
+        layer.msg("登录出错");
+    }
 </script>
 </html>

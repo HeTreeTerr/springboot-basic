@@ -46,6 +46,8 @@ public class UserServiceImplTest {
         user.setTfAdmin(false);
         user.setCreateUser("to_dou");
         user.setUpdateUser("to_dou");
+        user.setEnabled(true);
+        user.setLocked(false);
         userService.registeredUser(user);
     }
 
