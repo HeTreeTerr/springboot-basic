@@ -1,7 +1,9 @@
 package com.hss.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hss.service.impl.UserRoleService;
 import com.hss.util.Msg;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -11,7 +13,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -27,17 +29,23 @@ import java.io.PrintWriter;
 @Configuration
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserRoleService userRoleService;
+
     @Bean
     PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+        //使用springSecurity提供的加密方式加密
+        return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
                 .withUser("admin").password("123").roles("ADMIN")
                 .and()
-                .withUser("user").password("123").roles("USER");
+                .withUser("user").password("123").roles("USER");*/
+        //验证账号来源于数据库
+        auth.userDetailsService(userRoleService);
     }
 
     @Override
@@ -45,8 +53,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**")
                 .hasRole("ADMIN")
-                .antMatchers("/user/**")
-                .hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -101,7 +107,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addLogoutHandler(new LogoutHandler() {
                     @Override
                     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-                        //用户对出的数据清理
+                        //用户退出的数据清理
                     }
                 })
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
@@ -123,6 +129,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 ,"/**/*.ico","/**/*.svg","/druid/**");
   }
 
+  //处理成功时的json返回
   private void successJsonResponse(HttpServletResponse response) throws IOException {
       response.setContentType("application/json;charSet=utf-8");
       PrintWriter out = response.getWriter();

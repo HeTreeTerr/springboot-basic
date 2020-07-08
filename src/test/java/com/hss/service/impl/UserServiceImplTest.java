@@ -38,7 +38,7 @@ public class UserServiceImplTest {
         User user = new User();
         user.setUserName("hss");
         user.setName("何森森");
-        user.setBrithday(new Date());
+        user.setBirthday(new Date());
         user.setHeadImgUrl("lalal.png");
         user.setMobileNumber("18628466845");
         user.setPassWord("11111111");

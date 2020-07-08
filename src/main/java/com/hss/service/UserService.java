@@ -17,6 +17,9 @@ public interface UserService {
      */
     PageInfo<User> findUserListPage(Integer pageNo, int pageSize);
 
+    /**
+     * 修改用户性别（测试事务有效性）
+     */
     void bulkUpdateUserSex();
 
     /**

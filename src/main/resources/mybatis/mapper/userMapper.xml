@@ -9,7 +9,7 @@
         <result column="name" property="name" />
         <result column="passWord" property="passWord" />
         <result column="mobileNumber" property="mobileNumber" />
-        <result column="brithday" property="brithday" />
+        <result column="birthday" property="birthday" />
         <result column="sex" property="sex" />
         <result column="headImgUrl" property="headImgUrl" />
         <result column="tfAdmin" property="tfAdmin" />
@@ -22,7 +22,7 @@
     </resultMap>
 
     <sql id="columns">
-        ID,USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
+        ID,USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BIRTHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,CREATEDATE,UPDATEUSER,UPDATEDATE
         ,ENABLED,LOCKED
     </sql>
 
@@ -31,8 +31,8 @@
     </select>
 
     <insert id="registeredUser" parameterType="com.hss.bean.User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
-        insert into users(USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BRITHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,UPDATEUSER,ENABLED,LOCKED)
-        values(#{userName},#{name},#{passWord},#{mobileNumber},#{brithday},#{sex},#{headImgUrl},#{tfAdmin},#{createUser},#{updateUser},#{enabled},#{locked})
+        insert into users(USERNAME,`NAME`,PASSWORD,MOBILENUMBER,BIRTHDAY,SEX,HEADIMGURL,TFADMIN,CREATEUSER,UPDATEUSER,ENABLED,LOCKED)
+        values(#{userName},#{name},#{passWord},#{mobileNumber},#{birthday},#{sex},#{headImgUrl},#{tfAdmin},#{createUser},#{updateUser},#{enabled},#{locked})
     </insert>
 
     <update id="updateUserInfo" parameterType="com.hss.bean.User">

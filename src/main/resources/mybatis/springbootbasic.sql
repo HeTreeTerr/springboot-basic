@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2020-07-05 19:35:58
+Date: 2020-07-09 01:01:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `users` (
   `NAME` varchar(75) DEFAULT NULL COMMENT '用户姓名',
   `PASSWORD` varchar(75) NOT NULL COMMENT '密码',
   `MOBILENUMBER` varchar(20) DEFAULT NULL COMMENT '手机号',
-  `BRITHDAY` date DEFAULT NULL COMMENT '生日',
+  `BIRTHDAY` date DEFAULT NULL COMMENT '生日',
   `SEX` smallint(2) NOT NULL DEFAULT '1' COMMENT '性别：1男2女',
   `HEADIMGURL` varchar(150) DEFAULT NULL COMMENT '头像',
   `TFADMIN` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否管理员',

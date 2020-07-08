@@ -23,11 +23,10 @@
         </li>
         <li sec:authorize="isAuthenticated()" class="layui-nav-item">
             <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">
-                <span sec:authentication="name"></span>
-                <!--登录名：
+                登录名：<span sec:authentication="name"></span>
                 角色：<span sec:authentication="principal.authorities"></span>
                 用户名：<span sec:authentication="principal.username"></span>
-                密码：<span sec:authentication="principal.password"></span>-->
+                密码：<span sec:authentication="principal.password"></span>
             </a>
             <dl class="layui-nav-child">
                 <dd><a href="javascript:;">修改信息</a></dd>

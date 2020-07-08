@@ -1,5 +1,6 @@
 package com.hss.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.PageInfo;
 import com.hss.bean.User;
 import com.hss.service.UserService;
@@ -56,8 +57,11 @@ public class SignController {
 
     @RequestMapping(value = "/getUserSignInfo",method = {RequestMethod.POST,RequestMethod.GET})
     public Msg getUserInfo(HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Principal principal = request.getUserPrincipal();
-        return Msg.success().add("userName",principal.getName());
+        User signUser = userService.findUserByUserName(principal.getName());
+        User simpleUserInfo = createUserParam(signUser);
+        return Msg.success().add("signUserInfo",simpleUserInfo);
     }
 
     @RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
@@ -72,7 +76,7 @@ public class SignController {
     private User createUserParam(User user){
         User sessionUserInfo = new User();
         sessionUserInfo.setId(user.getId());
-        sessionUserInfo.setUserName(""/*user.getUserName()*/);
+        sessionUserInfo.setUserName(user.getUsername());
         sessionUserInfo.setName(user.getName());
         sessionUserInfo.setHeadImgUrl(user.getHeadImgUrl());
         sessionUserInfo.setSex(user.getSex());

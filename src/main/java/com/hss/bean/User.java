@@ -1,6 +1,9 @@
 package com.hss.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +19,7 @@ public class User extends BaseDomain implements UserDetails {
     public User() {
     }
 
+    private Long id;
     /** 用户名 */
     private String userName;
     /** 用户姓名 */
@@ -26,7 +30,7 @@ public class User extends BaseDomain implements UserDetails {
     private String mobileNumber;
     /** 出生日期 */
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
-    private Date brithday;
+    private Date birthday;
     /** 性别 */
     private Integer sex;
     /** 头像 */
@@ -54,17 +58,17 @@ public class User extends BaseDomain implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return false;
+    public boolean isAccountNonExpired() {//账号未过期
+        return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked() {//账号未锁定
         return !locked;
     }
 
     @Override
-    public boolean isCredentialsNonExpired() {
+    public boolean isCredentialsNonExpired() {//凭证未过期
         return true;
     }
 
@@ -73,6 +77,15 @@ public class User extends BaseDomain implements UserDetails {
         return enabled;
     }
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -98,12 +111,12 @@ public class User extends BaseDomain implements UserDetails {
         this.mobileNumber = mobileNumber;
     }
 
-    public Date getBrithday() {
-        return brithday;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBrithday(Date brithday) {
-        this.brithday = brithday;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getHeadImgUrl() {
@@ -129,10 +142,6 @@ public class User extends BaseDomain implements UserDetails {
     public void setTfAdmin(Boolean tfAdmin) {
         this.tfAdmin = tfAdmin;
     }
-
-//    public Boolean getEnabled() {
-//        return enabled;
-//    }
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;

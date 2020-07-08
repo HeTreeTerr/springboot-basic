@@ -1,5 +1,6 @@
 package com.hss.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.pagehelper.PageInfo;
 import com.hss.bean.User;
 import com.hss.service.UserService;
