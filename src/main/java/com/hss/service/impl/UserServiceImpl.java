@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public Long registeredUser(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassWord(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setCreateUser("admin");
         user.setUpdateUser("admin");
         userMapper.registeredUser(user);

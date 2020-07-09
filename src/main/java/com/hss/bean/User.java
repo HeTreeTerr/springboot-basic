@@ -1,19 +1,21 @@
 package com.hss.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.hss.util.BaseDomain;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户信息
  */
+@JsonIgnoreProperties({ "password"})
 public class User extends BaseDomain implements UserDetails {
 
     public User() {
@@ -25,7 +27,7 @@ public class User extends BaseDomain implements UserDetails {
     /** 用户姓名 */
     private String name;
     /** 密码 */
-    private String passWord;
+    private String password;
     /** 手机号 */
     private String mobileNumber;
     /** 出生日期 */
@@ -41,15 +43,21 @@ public class User extends BaseDomain implements UserDetails {
     private Boolean enabled;
     /** 是否锁定 */
     private Boolean locked;
+    /** 用户角色 */
+    private List<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+        for(Role role: roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return passWord;
+        return password;
     }
 
     @Override
@@ -99,8 +107,8 @@ public class User extends BaseDomain implements UserDetails {
         this.name = name;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getMobileNumber() {
@@ -153,5 +161,13 @@ public class User extends BaseDomain implements UserDetails {
 
     public void setLocked(Boolean locked) {
         this.locked = locked;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

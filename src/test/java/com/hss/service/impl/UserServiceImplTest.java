@@ -41,7 +41,7 @@ public class UserServiceImplTest {
         user.setBirthday(new Date());
         user.setHeadImgUrl("lalal.png");
         user.setMobileNumber("18628466845");
-        user.setPassWord("11111111");
+        user.setPassword("11111111");
         user.setSex(1);
         user.setTfAdmin(false);
         user.setCreateUser("to_dou");

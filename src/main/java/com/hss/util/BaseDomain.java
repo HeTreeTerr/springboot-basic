@@ -1,4 +1,4 @@
-package com.hss.bean;
+package com.hss.util;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;

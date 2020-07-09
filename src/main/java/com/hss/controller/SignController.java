@@ -33,54 +33,11 @@ public class SignController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public Msg login(@RequestParam(value = "userName") String userName, @RequestParam(value = "password")String password
-            , HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        if(userName != null && !"".equals(userName) && password != null && !"".equals(password)){
-            //从数据库获取用户信息
-            User user = userService.findUserByUserName(userName);
-            if(user != null /*&& MyMD5Util.validPassword(password, user.getPassWord())*/){
-                // 登录成功,保存当前用户登录的sessionId
-                String sessionID = session.getId();
-                logger.info("sessionID------------->"+sessionID);
-                User sessionUserInfo = createUserParam(user);
-                session.setAttribute("userSession",sessionUserInfo);
-                RedisUtil.set("spring:session:loginUser:" + user.getId(), session.getId(), 60*60*1000);
-                return Msg.success().add("flag","true");
-            }else{
-                return Msg.fail().add("errorMsg","用户名不存在，或密码错误");
-            }
-        }else{
-            return Msg.fail().add("errorMsg","用户名或密码为空");
-        }
-    }
-
     @RequestMapping(value = "/getUserSignInfo",method = {RequestMethod.POST,RequestMethod.GET})
     public Msg getUserInfo(HttpServletRequest request) {
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         Principal principal = request.getUserPrincipal();
         User signUser = userService.findUserByUserName(principal.getName());
-        User simpleUserInfo = createUserParam(signUser);
-        return Msg.success().add("signUserInfo",simpleUserInfo);
+        return Msg.success().add("signUserInfo",signUser);
     }
 
-    @RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
-    public Msg logout(HttpSession session, SessionStatus sessionStatus){
-        User userInfo=(User) session.getAttribute("userSession");
-        RedisUtil.delete("spring:session:loginUser:" + userInfo.getId());
-        session.invalidate();
-        sessionStatus.setComplete();
-        return Msg.success().add("flag","true");
-    }
-
-    private User createUserParam(User user){
-        User sessionUserInfo = new User();
-        sessionUserInfo.setId(user.getId());
-        sessionUserInfo.setUserName(user.getUsername());
-        sessionUserInfo.setName(user.getName());
-        sessionUserInfo.setHeadImgUrl(user.getHeadImgUrl());
-        sessionUserInfo.setSex(user.getSex());
-        sessionUserInfo.setTfAdmin(user.getTfAdmin());
-        return sessionUserInfo;
-    }
 }
