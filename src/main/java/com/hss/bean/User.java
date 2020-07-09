@@ -49,10 +49,14 @@ public class User extends BaseDomain implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        for(Role role: roles){
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        if(roles == null || roles.size() <= 0){
+            return null;
+        }else{
+            for(Role role: roles){
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+            return authorities;
         }
-        return authorities;
     }
 
     @Override
