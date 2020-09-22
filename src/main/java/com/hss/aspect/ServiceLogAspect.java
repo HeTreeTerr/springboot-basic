@@ -98,7 +98,9 @@ public class ServiceLogAspect {
         logger.info("环绕通知的目标方法名："+proceedingJoinPoint.getSignature().getName());
 
         long startTime = System.currentTimeMillis();
+        //执行目标方法之前
         Object obj = proceedingJoinPoint.proceed();
+        //执行目标方法之后
         Long takeTime = System.currentTimeMillis() - startTime;
         logger.info("耗时：" + takeTime);
         return obj;
